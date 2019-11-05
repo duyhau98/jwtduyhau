@@ -4,7 +4,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var socket = require('socket.io');
-var http = require('http');
+
 
 var user = require('./routes/user');
 var auth = require('./routes/auth');
@@ -18,7 +18,7 @@ var app = express();
 var allowCrossDomain = function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Credentials', 'true');
-  res.header('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,Authorization');
+  res.header('Access-Control-Allow-Headers', '*');
   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
   
   // allow options method work, ask experts for more
@@ -62,9 +62,8 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-server = app.listen(5000,()=>console.log("Start in 5000"));
-var server = http.createServer(app);
-var io = require("socket.io")(server, {origins:':'});
+server = app.listen(process.env.PORT || 5000,()=>console.log("Start in 5000"));
+io = socket(server);
 
 io.on('connection', (socket) => {
     console.log("Da Ket noi Socket");
