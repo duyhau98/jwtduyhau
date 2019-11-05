@@ -4,7 +4,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var socket = require('socket.io');
-
+var http = require('http');
 
 var user = require('./routes/user');
 var auth = require('./routes/auth');
@@ -62,14 +62,26 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-app.listen(process.env('PORT')||5000,()=>console.log("Start in 5000"));
-io = socket(server);
+server = app.listen(5000,()=>console.log("Start in 5000"));
+var server = http.createServer(app);
+var io = require("socket.io")(server, {origins:':'});
 
 io.on('connection', (socket) => {
-    console.log( socket.id);
+    console.log("Da Ket noi Socket");
     socket.on('SEND_MESSAGE', function(data){
       io.emit('RECEIVE_MESSAGE', data);
+
   })
+
+  socket.on('FIND_ANOTHER', function(data){
+    io.emit('RECEIVE_FIND_ANOTHER', data);
+
+})
+socket.on('PLAY_WITH_ANOTHER', function(data){
+  io.emit('RECEIVE_PLAY_WITH_ANOTHER', data);
+
+})
+
 });
 
 module.exports = app;
