@@ -106,7 +106,7 @@ socket.on('REPLY_UNDO', function(data){
 
 })
 
-ocket.on('REQUEST_HOA', function(data){
+socket.on('REQUEST_HOA', function(data){
   io.emit('RECEIVE_REQUEST_HOA', data);
 
 })
