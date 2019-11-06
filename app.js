@@ -81,6 +81,39 @@ socket.on('PLAY_WITH_ANOTHER', function(data){
 
 })
 
+  socket.on('XIN_DAU_HANG', function(data){
+  io.emit('RECEIVE_XIN_DAU_HANG', data);
+
+})
+
+socket.on('REQUEST_START_AGAIN', function(data){
+  io.emit('RECEIVE_REQUEST_START_AGAIN', data);
+
+})
+
+socket.on('REPLY_START_AGAIN', function(data){
+  io.emit('RECEIVE_REPLY_START_AGAIN', data);
+
+})
+
+socket.on('REQUEST_UNDO', function(data){
+  io.emit('RECEIVE_REQUEST_UNDO', data);
+
+})
+
+socket.on('REPLY_UNDO', function(data){
+  io.emit('RECEIVE_REPLY_UNDO', data);
+
+})
+
+ocket.on('REQUEST_HOA', function(data){
+  io.emit('RECEIVE_REQUEST_HOA', data);
+
+})
+
+socket.on('REPLY_HOA', function(data){
+  io.emit('RECEIVE_REPLY_HOA', data);
+  
 });
 
 module.exports = app;
