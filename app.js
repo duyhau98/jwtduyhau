@@ -113,6 +113,7 @@ socket.on('REQUEST_HOA', function(data){
 
 socket.on('REPLY_HOA', function(data){
   io.emit('RECEIVE_REPLY_HOA', data);
+})
   
 });
 
